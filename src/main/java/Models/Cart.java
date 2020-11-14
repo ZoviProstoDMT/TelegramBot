@@ -1,8 +1,6 @@
 package Models;
 
-import Models.Products.Hookah;
-import Models.Products.Product;
-import Models.Products.Tobacco;
+import Models.Products.*;
 
 import java.util.ArrayList;
 
@@ -39,25 +37,47 @@ public class Cart {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         long sumPrice = 0;
-        sb.append("*КОРЗИНА*\n\n");
+        sb.append("*🛒 КОРЗИНА*\n\n");
         for (Product product : cart) {
             if (product instanceof Tobacco) {
-                sumPrice += product.getPrice();
+                sumPrice += product.getPrice() * product.getCount();
                 sb.append(cart.indexOf(product) + 1)
-                        .append(".  _(табак)_\n").append(product.getName()).append("\n").append("     Вкус: ").append(product.getTaste())
-                        .append("\n\t").append(product.getPrice()).append(" руб.\n\n---\n\n");
+                        .append(".  *").append(product.getName()).append("*\n     (`").append(product.getTaste()).append("`)\n")
+                        .append("     ").append(product.getCount()).append(" _шт._ `X` ").append(product.getPrice())
+                        .append(" _руб._\n\n");
             }
             else if (product instanceof Hookah) {
-                sumPrice += product.getPrice();
+                sumPrice += product.getPrice() * product.getCount();
                 sb.append(cart.indexOf(product) + 1)
-                        .append(".  _(кальян)_\n").append(product.getName()).append("\n")
-                        .append(product.getPrice()).append(" руб.\n\n---\n\n");
+                        .append(".  *").append(product.getBrand()).append(" ").append(product.getName()).append("*\n")
+                        .append("     ").append(product.getCount()).append(" _шт._ `X` ").append(product.getPrice())
+                        .append(" _руб._\n\n");
             }
+            else if (product instanceof Accessory) {
+                sumPrice += product.getPrice() * product.getCount();
+                sb.append(cart.indexOf(product) + 1)
+                        .append(".  *").append(((Accessory) product).getType()).append("* ").append(product.getName())
+                        .append("\n").append("     ").append(product.getCount()).append(" _шт._ `X` ").append(product.getPrice())
+                        .append(" _руб._\n\n");
+            }
+            else if (product instanceof Charcoal) {
+                sumPrice += product.getPrice() * product.getCount();
+                sb.append(cart.indexOf(product) + 1)
+                        .append(".  *").append(product.getName()).append("* ").append("\n")
+                        .append("     ").append(product.getCount()).append(" _шт._ `X` ").append(product.getPrice())
+                        .append(" _руб._\n\n");
+            }
+
         }
-        sb.append("ИТОГО: ").append(sumPrice).append(" руб.");
+        sb.append("*ИТОГО:*  ").append(sumPrice).append(" _руб._").append("\n");
         if (sumPrice == 0)
-            return "*КОРЗИНА*\n\nВаша корзина пуста!\n\n---\n\n";
+            return "*🛒 КОРЗИНА*\n\nВаша корзина пуста!\nВоспользуйтесь каталогом, чтобы найти всё что нужно\n";
         else
             return new String(sb);
+    }
+
+    public String toStringEdit(int position) {
+        String pos = String.valueOf(position);
+        return toString().replace(pos + ".","\uD83D\uDCCD");
     }
 }

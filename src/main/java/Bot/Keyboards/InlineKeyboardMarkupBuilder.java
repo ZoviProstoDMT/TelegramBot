@@ -1,11 +1,16 @@
 package Bot.Keyboards;
 
+import Models.Products.Accessory;
+import Models.Products.Charcoal;
 import Models.Products.Hookah;
 import Models.Products.Tobacco;
+import org.checkerframework.checker.units.qual.A;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
+import org.telegram.telegrambots.meta.api.objects.inlinequery.result.InlineQueryResultContact;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,17 +70,13 @@ public class InlineKeyboardMarkupBuilder implements KeyboardMarkupBuilder {
         ArrayList<List<InlineKeyboardButton>> rows = new ArrayList<>();
         ArrayList<InlineKeyboardButton> row = new ArrayList<>();
         for (String s : text) {
-            if (row.size() < 2) {
-                row.add(new InlineKeyboardButton()
-                        .setText(s)
-                        .setCallbackData(handle + s));
-            } else {
+            if (row.size() >= 2) {
                 rows.add(row);
                 row = new ArrayList<>();
-                row.add(new InlineKeyboardButton()
-                        .setText(s)
-                        .setCallbackData(handle + s));
             }
+            row.add(new InlineKeyboardButton()
+                    .setText(s.trim())
+                    .setCallbackData(handle + s));
         }
         if (!row.isEmpty())
             rows.add(row);
@@ -83,29 +84,167 @@ public class InlineKeyboardMarkupBuilder implements KeyboardMarkupBuilder {
         return this;
     }
 
-    public InlineKeyboardMarkupBuilder hookahButtons(ArrayList<Hookah> hookahs, String brand) {
+    public InlineKeyboardMarkupBuilder countButtons(String text, String callbackAction) {
+        ArrayList<InlineKeyboardButton> row = new ArrayList<>();
+        int count;
+        if (text.startsWith("t")) {
+            count = Integer.parseInt(text.split("&")[1].split("\\?")[2]);
+        }
+        else {
+            count = Integer.parseInt(text.split("&")[1].split("\\?")[1]);
+        }
+        if (count > 1) {
+            row.add(new InlineKeyboardButton()
+                    .setText("➖")
+                    .setCallbackData(text + "?down"));
+        }
+        else {
+            row.add(new InlineKeyboardButton()
+                    .setText("✖")
+                    .setCallbackData("."));
+        }
+        row.add(new InlineKeyboardButton()
+                .setText(String.valueOf(count))
+                .setCallbackData("."));
+        if (count < 50) {
+            row.add(new InlineKeyboardButton()
+                    .setText("➕")
+                    .setCallbackData(text + "?up"));
+        }
+        else {
+            row.add(new InlineKeyboardButton()
+                    .setText("✖")
+                    .setCallbackData("."));
+        }
+        this.keyboard.add(row);
+        row = new ArrayList<>();
+        row.add(new InlineKeyboardButton()
+                .setText("🛒 Подтвердить количество")
+                .setCallbackData(text + "?" + callbackAction));
+        this.keyboard.add(row);
+        return this;
+    }
+
+    public InlineKeyboardMarkupBuilder positionButtons(String text, int cartSize) {
+        ArrayList<InlineKeyboardButton> row = new ArrayList<>();
+        int count;
+        count = Integer.parseInt(text.split("&")[1].split("\\?")[0]);
+        if (count > 0) {
+            row.add(new InlineKeyboardButton()
+                    .setText("➖")
+                    .setCallbackData(text + "?down"));
+        }
+        else {
+            row.add(new InlineKeyboardButton()
+                    .setText("✖")
+                    .setCallbackData("."));
+        }
+        row.add(new InlineKeyboardButton()
+                .setText(String.valueOf(count))
+                .setCallbackData("."));
+        if (count < cartSize) {
+            row.add(new InlineKeyboardButton()
+                    .setText("➕")
+                    .setCallbackData(text + "?up"));
+        }
+        else {
+            row.add(new InlineKeyboardButton()
+                    .setText("✖")
+                    .setCallbackData("."));
+        }
+        this.keyboard.add(row);
+        return this;
+    }
+
+    public InlineKeyboardMarkupBuilder phoneNumberButtons() {
+        ArrayList<InlineKeyboardButton> row = new ArrayList<>();
+        row.add(new InlineKeyboardButton()
+                .setText("1")
+                .setCallbackData("onumber&1"));
+        row.add(new InlineKeyboardButton()
+                .setText("2")
+                .setCallbackData("onumber&2"));
+        row.add(new InlineKeyboardButton()
+                .setText("3")
+                .setCallbackData("onumber&3"));
+        this.keyboard.add(row);
+        row = new ArrayList<>();
+        row.add(new InlineKeyboardButton()
+                .setText("4")
+                .setCallbackData("onumber&4"));
+        row.add(new InlineKeyboardButton()
+                .setText("5")
+                .setCallbackData("onumber&5"));
+        row.add(new InlineKeyboardButton()
+                .setText("6")
+                .setCallbackData("onumber&6"));
+        this.keyboard.add(row);
+        row = new ArrayList<>();
+        row.add(new InlineKeyboardButton()
+                .setText("7")
+                .setCallbackData("onumber&7"));
+        row.add(new InlineKeyboardButton()
+                .setText("8")
+                .setCallbackData("onumber&8"));
+        row.add(new InlineKeyboardButton()
+                .setText("9")
+                .setCallbackData("onumber&9"));
+        this.keyboard.add(row);
+        row = new ArrayList<>();
+        row.add(new InlineKeyboardButton()
+                .setText("0")
+                .setCallbackData("onumber&0"));
+        this.keyboard.add(row);
+        return this;
+    }
+
+    public InlineKeyboardMarkupBuilder hookahButtons(ArrayList<Hookah> hookahs, String handler) {
         for (Hookah hookah : hookahs) {
             this.row = new ArrayList<>();
             row.add(new InlineKeyboardButton()
-                    .setText(hookah.getName().replace(brand, "").trim().replace("X","").trim() + " | " + hookah.getPrice() + " руб.")
-                    .setCallbackData("h" + hookah.getName()));
-            this.keyboard.add(this.row);
-            this.row = null;
-        }
-        return this;
-    }
-    public InlineKeyboardMarkupBuilder tobaccoButtons(ArrayList<Tobacco> tobacco) {
-        for (Tobacco t : tobacco) {
-            this.row = new ArrayList<>();
-            row.add(new InlineKeyboardButton()
-                    .setText(t.getName() + " | " + t.getPrice() + " руб.")
-                    .setCallbackData("tid" + t.getId()));
+                    .setText(hookah.getName() + " | " + hookah.getPrice() + " руб.")
+                    .setCallbackData(handler + "id" + hookah.getId()));
             this.keyboard.add(this.row);
             this.row = null;
         }
         return this;
     }
 
+    public InlineKeyboardMarkupBuilder tobaccoButtons(ArrayList<Tobacco> tobacco, String handler, String callBackData) {
+        for (Tobacco t : tobacco) {
+            this.row = new ArrayList<>();
+            row.add(new InlineKeyboardButton()
+                    .setText(t.getName() + " | " + t.getPrice() + " руб.")
+                    .setCallbackData(handler + "id" + t.getId() + callBackData));
+            this.keyboard.add(this.row);
+            this.row = null;
+        }
+        return this;
+    }
+
+    public InlineKeyboardMarkupBuilder accessoryButtons(ArrayList<Accessory> accessory,String handler){
+        for (Accessory a : accessory) {
+            this.row = new ArrayList<>();
+            row.add(new InlineKeyboardButton()
+                    .setText(a.getName() + " | " + a.getPrice() + " руб.")
+                    .setCallbackData(handler + "id" + a.getId()));
+            this.keyboard.add(this.row);
+            this.row = null;
+        }
+        return this;
+    }
+
+    public InlineKeyboardMarkupBuilder charcoalButtons(ArrayList<Charcoal> charcoals){
+        for (Charcoal c : charcoals){
+            this.row = new ArrayList<>();
+            row.add(new InlineKeyboardButton()
+            .setText(c.getName() + " | " + c.getPrice() + " руб.")
+            .setCallbackData("uid" + c.getId()));
+            this.keyboard.add(this.row);
+            this.row = null;
+        }
+        return this;
+    }
 
     public InlineKeyboardMarkupBuilder buttonWithURL(String text, String URL) {
         row.add(new InlineKeyboardButton()

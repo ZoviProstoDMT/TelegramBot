@@ -2,20 +2,30 @@ package Models.Products;
 
 import java.util.ArrayList;
 
-public class Tobacco extends Product {
+public class Tobacco extends Product implements Cloneable {
     private long id;
     private String name;
     private long price;
     private String img;
+    private boolean isAvailable;
     private String taste;
-    private boolean sale;
     private ArrayList<String> radonejskayaTastes;
     private ArrayList<String> karlaMarksaTastes;
-    private boolean isAvailable;
     private String description;
     private String fortress;
+    private int count = 1;
 
     public Tobacco() {
+    }
+
+    @Override
+    public int getCount() {
+        return count;
+    }
+
+    @Override
+    public void setCount(int count) {
+        this.count = count;
     }
 
     public long getId() {
@@ -74,7 +84,7 @@ public class Tobacco extends Product {
         this.taste = taste;
     }
 
-    public boolean getAvailable() {
+    public boolean isAvailable() {
         return isAvailable;
     }
 
@@ -98,24 +108,26 @@ public class Tobacco extends Product {
         this.fortress = fortress;
     }
 
-    public boolean isAvailable() {
-        return isAvailable;
-    }
-
     public void setAvailable(boolean available) {
         isAvailable = available;
     }
 
     @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
+
+    @Override
     public String toString() {
         return "Tobacco{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", price=" + price +
                 ", img='" + img + '\'' +
+                ", isAvailable=" + isAvailable +
                 ", taste='" + taste + '\'' +
                 ", radonejskayaTastes=" + radonejskayaTastes +
-                ", karlaMarkasaTastes=" + karlaMarksaTastes +
-                ", isAvailable=" + isAvailable +
+                ", karlaMarksaTastes=" + karlaMarksaTastes +
                 ", description='" + description + '\'' +
                 ", fortress='" + fortress + '\'' +
                 '}';

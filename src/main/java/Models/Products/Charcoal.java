@@ -1,18 +1,21 @@
 package Models.Products;
 
-public class Accessory extends Product {
+public class Charcoal extends Product {
     private long id;
     private String brand;
     private String name;
     private long price;
     private String img;
-    private Boolean isAvailable;
-    private String type;
+    private boolean isAvailable;
     private String description;
     private int count = 1;
 
-    public boolean isAvailable() {
-        return isAvailable;
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
     }
 
     public long getId() {
@@ -23,30 +26,7 @@ public class Accessory extends Product {
         this.id = id;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public Boolean getAvailable() {
-        return isAvailable;
-    }
-
-    public void setAvailable(Boolean available) {
-        isAvailable = available;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
+    @Override
     public String getBrand() {
         return brand;
     }
@@ -63,6 +43,7 @@ public class Accessory extends Product {
     public void setName(String name) {
         this.name = name;
     }
+
 
     @Override
     public long getPrice() {
@@ -82,24 +63,33 @@ public class Accessory extends Product {
         this.img = img;
     }
 
-    public int getCount() {
-        return count;
+    public boolean isAvailable() {
+        return isAvailable;
     }
 
-    public void setCount(int count) {
-        this.count = count;
+    public void setAvailable(boolean available) {
+        isAvailable = available;
+    }
+
+
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override
-    public String toString() {
-        return "Accessory{" +
-                "name='" + name + '\'' +
+    public String toString(){
+      return   "Charcoal{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", price=" + price +
                 ", img='" + img + '\'' +
-                ", type='" + type + '\'' +
+                ", isAvailable=" + isAvailable +
                 ", description='" + description + '\'' +
-                ", isAvailable='" + isAvailable + '\'' +
-                ", id='" + id + '\'' +
                 '}' + "\n";
     }
 }
