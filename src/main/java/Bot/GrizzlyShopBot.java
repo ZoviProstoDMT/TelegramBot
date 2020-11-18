@@ -5,6 +5,7 @@ import Bot.Keyboards.ReplyKeyboardMarkupBuilder;
 import Bot.Models.Order;
 import Bot.Models.Products.*;
 import Bot.Service.*;
+import Bot.Service.ServiceXML.XMLWriter;
 import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
@@ -25,6 +26,7 @@ import java.util.Date;
 
 public class GrizzlyShopBot extends TelegramLongPollingBot {
 
+    private static final String BOT_TOKEN = System.getenv("TOKEN");
     private static final HookahService HOOKAH_SERVICE = new HookahService();
     private static final TobaccoService TOBACCO_SERVICE = new TobaccoService();
     private static final CartService CART_SERVICE = new CartService();
@@ -191,7 +193,7 @@ public class GrizzlyShopBot extends TelegramLongPollingBot {
             switch (text) {
                 case "/start":
                     sendMessage = ReplyKeyboardMarkupBuilder.create(chat_id)
-                            .setText("*Добро пожаловать в - GRIZZLY SHOP -!*\n" +
+                            .setText("*Добро пожаловать в GRIZZLY SHOP!*\n" +
                                     "У нас вы найдёте большой ассортимент кальянной продукции, " +
                                     "включая всевозможные аксесуары и огромный выбор табака!" +
                                     "\n\n\uD83D\uDD1E *Данный магазин предназначен для лиц " +
@@ -1633,7 +1635,7 @@ public class GrizzlyShopBot extends TelegramLongPollingBot {
                         .endRow()
                         .rebuild(mes_id);
                 editMessage.setText("*Наличие вкусов по адресу: Радонежская 1*\n\nВыберите вкус табака:");
-            } 
+            }
             else {
                 addressTobacco = TOBACCO_SERVICE.getTobaccoById(Long.parseLong(text.replace("?KarTastes","")));
                 editMessage = InlineKeyboardMarkupBuilder.create(chat_id)
@@ -2253,6 +2255,6 @@ public class GrizzlyShopBot extends TelegramLongPollingBot {
     }
 
     public String getBotToken() {
-        return "1238275097:AAGnnDKQpxjxCfjey6zxx0kVgm1EdDNMvak";
+        return BOT_TOKEN;
     }
 }
