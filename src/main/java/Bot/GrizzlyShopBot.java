@@ -216,6 +216,8 @@ public class GrizzlyShopBot extends TelegramLongPollingBot {
                             .endRow()
                             .row()
                             .button("🛒 Корзина")
+                            .endRow()
+                            .row()
                             .button("📞 Контакты")
                             .endRow()
                             .build();
@@ -438,7 +440,7 @@ public class GrizzlyShopBot extends TelegramLongPollingBot {
                 editMessage.setText("🏷 *" + cartHookah.getBrand() + "* | " + cartHookah.getName() +
                         "\n💵 " + count + " _шт._ `X` " + (cartHookah.getPrice()) + " _руб._" +
                         " = " + (cartHookah.getPrice()*count) + " _руб._" +
-                        "\n`(цена указана за полный комлект)`" +
+                        "\n*(цена указана за полный комлект)*" +
                         "\n\nВыберите необходимое количество:");
             }
             else if (text.contains("?down")) {
@@ -454,7 +456,7 @@ public class GrizzlyShopBot extends TelegramLongPollingBot {
                 editMessage.setText("🏷 *" + cartHookah.getBrand() + "* | " + cartHookah.getName() +
                         "\n💵 " + count + " _шт._ `X` " + (cartHookah.getPrice()) + " _руб._" +
                         " = " + (cartHookah.getPrice()*count) + " _руб._" +
-                        "\n`(цена указана за полный комлект)`" +
+                        "\n*(цена указана за полный комлект)*" +
                         "\n\nВыберите необходимое количество:");
             }
             else if (text.contains("?crt")) {
@@ -473,7 +475,7 @@ public class GrizzlyShopBot extends TelegramLongPollingBot {
                         .endRow()
                         .rebuild(mes_id);
                 editMessage.setText("🏷 *" + cartHookah.getBrand() + "* | " + cartHookah.getName() +
-                        "\n💵 *" + cartHookah.getPrice() + " руб. *\n`(цена указана за полный комлект)`" +
+                        "\n💵 *" + cartHookah.getPrice() + " руб. *\n*(цена указана за полный комлект)*" +
                         "\n\n" + cartHookah.getDescription().trim() +
                         "\n[_](" + cartHookah.getImg() + ")");
             }
@@ -490,7 +492,7 @@ public class GrizzlyShopBot extends TelegramLongPollingBot {
                 editMessage.setText("🏷 *" + cartHookah.getBrand() + "* | " + cartHookah.getName() +
                         "\n💵 " + count + " _шт._ `X` " + (cartHookah.getPrice()) + " _руб._" +
                         " = " + (cartHookah.getPrice()*count) + " _руб._" +
-                        "\n`(цена указана за полный комлект)`" +
+                        "\n*(цена указана за полный комлект)*" +
                         "\n\nВыберите необходимое количество:");
             }
         }
@@ -505,7 +507,7 @@ public class GrizzlyShopBot extends TelegramLongPollingBot {
                     .endRow()
                     .rebuild(mes_id);
             editMessage.setText("🏷 *" + idHookah.getBrand() + "* | " + idHookah.getName() +
-                    "\n💵 *" + idHookah.getPrice() + " руб. *\n`(цена указана за полный комлект)`" +
+                    "\n💵 *" + idHookah.getPrice() + " руб. *\n*(цена указана за полный комлект)*" +
                     "\n\n" + idHookah.getDescription().trim() +
                     "\n[_](" + idHookah.getImg() + ")");
         }
@@ -569,7 +571,7 @@ public class GrizzlyShopBot extends TelegramLongPollingBot {
                 editMessage.setText("🏷 *" + cartHookah.getBrand() + "* | " + cartHookah.getName() +
                         "\n💵 " + count + " _шт._ `X` " + (cartHookah.getPrice()) + " _руб._" +
                         " = " + (cartHookah.getPrice()*count) + " _руб._" +
-                        "\n`(цена указана за полный комлект)`" +
+                        "\n*(цена указана за полный комлект)*" +
                         "\n\nВыберите необходимое количество:");
             }
             else if (text.contains("?down")) {
@@ -585,7 +587,7 @@ public class GrizzlyShopBot extends TelegramLongPollingBot {
                 editMessage.setText("🏷 *" + cartHookah.getBrand() + "* | " + cartHookah.getName() +
                         "\n💵 " + count + " _шт._ `X` " + (cartHookah.getPrice()) + " _руб._" +
                         " = " + (cartHookah.getPrice()*count) + " _руб._" +
-                        "\n`(цена указана за полный комлект)`" +
+                        "\n*(цена указана за полный комлект)*" +
                         "\n\nВыберите необходимое количество:");
             }
             else if (text.contains("?crt")) {
@@ -604,7 +606,7 @@ public class GrizzlyShopBot extends TelegramLongPollingBot {
                         .endRow()
                         .rebuild(mes_id);
                 editMessage.setText("🏷 *" + cartHookah.getBrand() + "* | " + cartHookah.getName() +
-                        "\n💵 *" + cartHookah.getPrice() + " руб. *\n`(цена указана за полный комлект)`" +
+                        "\n💵 *" + cartHookah.getPrice() + " руб. *\n*(цена указана за полный комлект)*" +
                         "\n\n" + cartHookah.getDescription().trim() +
                         "\n[_](" + cartHookah.getImg() + ")");
             }
@@ -621,7 +623,7 @@ public class GrizzlyShopBot extends TelegramLongPollingBot {
                 editMessage.setText("🏷 *" + cartHookah.getBrand() + "* | " + cartHookah.getName() +
                         "\n💵 " + count + " _шт._ `X` " + (cartHookah.getPrice()) + " _руб._" +
                         " = " + (cartHookah.getPrice()*count) + " _руб._" +
-                        "\n`(цена указана за полный комлект)`" +
+                        "\n*(цена указана за полный комлект)*" +
                         "\n\nВыберите необходимое количество:");
             }
         }
@@ -637,7 +639,7 @@ public class GrizzlyShopBot extends TelegramLongPollingBot {
                         .endRow()
                         .rebuild(mes_id);
                 editMessage.setText("🏷 *" + currHookah.getBrand() + "* | " + currHookah.getName() +
-                        "\n💵 *" + currHookah.getPrice() + " руб. *\n`(цена указана за полный комлект)`" +
+                        "\n💵 *" + currHookah.getPrice() + " руб. *\n*(цена указана за полный комлект)*" +
                         "\n\n" + currHookah.getDescription().trim() +
                         "\n[_](" + currHookah.getImg() + ")");
             }
@@ -648,7 +650,7 @@ public class GrizzlyShopBot extends TelegramLongPollingBot {
                         .endRow()
                         .rebuild(mes_id);
                 editMessage.setText("🏷 *" + currHookah.getBrand() + "* | " + currHookah.getName() + " \n_(нет в наличии)_" +
-                        "\n💵 *" + currHookah.getPrice() + " руб. *\n`(цена указана за полный комлект)`" +
+                        "\n💵 *" + currHookah.getPrice() + " руб. *\n*(цена указана за полный комлект)*" +
                         "\n\n" + currHookah.getDescription().trim() +
                         "\n[_](" + currHookah.getImg() + ")");
             }
@@ -2152,7 +2154,7 @@ public class GrizzlyShopBot extends TelegramLongPollingBot {
             javax.mail.Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress("grizzly_shop_bot@mail.ru"));
             message.setRecipients(javax.mail.Message.RecipientType.TO,
-                    InternetAddress.parse("hot-dj@mail.ru, kozikov.dmitrii@mail.ru"));
+                    InternetAddress.parse("hot-dj@mail.ru"));
             message.setSubject("Новый заказ");
             message.setContent(order.toStringHTML());
             Transport.send(message);
@@ -2160,17 +2162,17 @@ public class GrizzlyShopBot extends TelegramLongPollingBot {
             throw new RuntimeException(e);
         }
 
-        long dmt_chat_id = 757517710;
         long den_chat_id = 416481326;
-        SendMessage sendMessage1 = new SendMessage().setChatId(dmt_chat_id);
+        long leha_chat_id = 474218137;
         SendMessage sendMessage2 = new SendMessage().setChatId(den_chat_id);
-        sendMessage1.setText(order.toString());
-        sendMessage1.setParseMode("Markdown");
+        SendMessage sendMessage3 = new SendMessage().setChatId(leha_chat_id);
         sendMessage2.setText(order.toString());
         sendMessage2.setParseMode("Markdown");
+        sendMessage3.setText(order.toString());
+        sendMessage3.setParseMode("Markdown");
         try {
-            execute(sendMessage1);
             execute(sendMessage2);
+            execute(sendMessage3);
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }

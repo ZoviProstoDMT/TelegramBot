@@ -154,7 +154,7 @@ public class AccessoriesService {
         }
         else {
             accessoriesList = new ArrayList<>();
-            for (int i = 1; i < 12; i++) {
+            for (int i = 1; i < 16; i++) {
                 Document document;
                 try {
                     document = Jsoup.connect("https://hookahinrussia.ru/product-category/%D0%B0%D0%BA%D1%81%D0%B5%D1%81%D1%81%D1%83%D0%B0%D1%80%D1%8B/page/" + i + "/").get();
@@ -197,13 +197,12 @@ public class AccessoriesService {
                     }
                     accessory.setImg(image.child(0).child(0).attr("src"));
                     String price = info.first().child(1).text().replaceAll(".00 руб.", "");
-                    if (price.length() > 5) {
+                    if (price.trim().contains(" ")) {
                         String[] priceArr = price.split(" ");
                         accessory.setPrice(Long.parseLong(priceArr[1]));
                     } else {
                         accessory.setPrice(Long.parseLong(price));
                     }
-                    accessory.setPrice(Long.parseLong(price));
                     Element description = document.getElementsByClass("woocommerce-Tabs-panel woocommerce-Tabs-panel--description panel entry-content wc-tab").first();
                     if (description != null) {
                         accessory.setDescription(description.child(1).text());
